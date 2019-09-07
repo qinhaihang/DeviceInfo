@@ -2,8 +2,13 @@ package com.qhh.deviceinfo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.qhh.deviceinfo.bean.ScreenInfos;
+import com.qhh.deviceinfo.utils.DeviceInfos;
+import com.qhh.deviceinfo.utils.SystemUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        SystemUtils.hideBottomUIMenu(this);
         setContentView(R.layout.activity_main);
         mDeviceInfoTv = findViewById(R.id.tv_device_info);
         mInfos = new StringBuilder();
@@ -29,21 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void showScreenInfo() {
 
-        DisplayMetrics metrics = new DisplayMetrics();
+        ScreenInfos screenInfos = DeviceInfos.getScreenInfos(this);
 
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        int widthPixels = metrics.widthPixels;
-        int heightPixels = metrics.heightPixels;
-
-        mInfos.append("widthPx = " + widthPixels + "\n")
-                .append("heightPx = " + heightPixels + "\n");
-
-        float density = metrics.density;
-        int densityDpi = metrics.densityDpi;
-
-        mInfos.append("像素密度(density) = " + density + "\n")
-                .append("dpi = " + densityDpi + "\n");
+        mInfos.append("widthPx = " + screenInfos.widthPixels + "\n")
+                .append("heightPx = " + screenInfos.heightPixels + "\n")
+                .append("density = " + screenInfos.density + "\n")
+                .append("dpi = " + screenInfos.densityDpi + "\n");
 
     }
 }
