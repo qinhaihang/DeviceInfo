@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void showScreenInfo() {
 
-        ScreenInfos screenInfos = DeviceInfos.getScreenInfos(this);
+        //ScreenInfos screenInfos = DeviceInfos.getScreenInfos(this);
+        ScreenInfos screenInfos = DeviceInfos.getScreenInfos(getApplicationContext());
 
         mInfos.append("widthPx = " + screenInfos.widthPixels + "\n")
                 .append("heightPx = " + screenInfos.heightPixels + "\n")

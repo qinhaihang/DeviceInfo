@@ -27,7 +27,7 @@ public class DeviceInfos {
         //DisplayMetrics metrics = new DisplayMetrics();
         DisplayMetrics metrics = getDisplayMetrics(activity);
 
-        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        //activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
         screenInfos.widthPixels = metrics.widthPixels;
         screenInfos.heightPixels = metrics.heightPixels;
@@ -47,6 +47,16 @@ public class DeviceInfos {
             activity.getWindowManager().getDefaultDisplay().getMetrics(metric);
         }
         return metric;
+    }
+
+    public static ScreenInfos getScreenInfos(Context context){
+        ScreenInfos screenInfos = new ScreenInfos();
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        screenInfos.widthPixels = metrics.widthPixels;
+        screenInfos.heightPixels = metrics.heightPixels;
+        screenInfos.density = metrics.density;
+        screenInfos.densityDpi = metrics.densityDpi;
+        return screenInfos;
     }
 
 }
